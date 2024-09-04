@@ -3,7 +3,7 @@ import joblib
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 import streamlit as st
-model =joblib.load("liveModelV1.pk1")
+model =joblib.load("liveModelV1.pkl")
 data= pd.read_csv("mobile_price_range_data.csv")
 #splitting the data into features and labels
 x= data.iloc[:,:-1]
@@ -15,14 +15,14 @@ y_pred=model.predict(x_test)
 #calculate accuracy
 accuracy= accuracy_score(y_test,y_pred)
 #page title
-st.tile("Model Accuracy and Real-Time Prediction")
+st.title("Model Accuracy and Real-Time Prediction")
 #display accuracy
 st.write(f"Model{accuracy}")
 #real time prediction on users inputs
 st.header("Real-Time Prediction")
 input_data=[]
 for col in x_test.columns:
-    input_value=st.numner_input(f'Input for feature{col}',value="")
+    input_value=st.number_input(f'Input for feature{col}',value=0)
     input_data.append(input_value)
 #convert input data into dataframe
 input_df=pd.DataFrame([input_data],columns=x_test.columns)
